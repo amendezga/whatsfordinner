@@ -7,16 +7,18 @@ function Nav() {
   return (
     <nav>
       <ul>
-        <li>
-            Menu
-          <ul>
-            <li><a href="/refrigerator">My Refrigerator</a></li>
-            <li><a href="/recipes">Recipes</a></li>
-            <li><a href="/about">About</a></li>
-          </ul>
-        </li>
-        <li class="recipes"><a href="/recipes">Recipes</a></li>
-        <li class="login"><a href="/login">Log in</a></li>
+            <Link to='/refrigerator'>
+            <li>My Refrigerator</li>
+            </Link>
+            <Link to='/recipes'>
+            <li>Recipes</li>
+            </Link>
+            <Link to='/about'>
+            <li>About</li>
+            </Link>
+            <Link to='/login'>
+            <li>Log In</li>
+            </Link>
       </ul>
     </nav>
   );
