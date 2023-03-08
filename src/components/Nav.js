@@ -8,16 +8,16 @@ function Nav() {
     <nav>
       <ul>
             <Link to='/refrigerator'>
-            <li>My Refrigerator</li>
+            <li><span> My Refrigerator </span></li>
             </Link>
             <Link to='/recipes'>
-            <li>Recipes</li>
+            <li><span> Recipes </span></li>
             </Link>
             <Link to='/about'>
-            <li>About</li>
+            <li><span> About </span></li>
             </Link>
             <Link to='/login'>
-            <li>Log In</li>
+            <li><span> Log In </span></li>
             </Link>
       </ul>
     </nav>
