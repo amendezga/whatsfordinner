@@ -8,7 +8,7 @@ function RecipesMain () {
 
     const [savedRecipes, setSavedRecipes] = useState(null);
 
-    const recipesURL = 'http://localhost:3001/recipes';
+    const recipesURL = 'http://localhost:2000/recipes';
 
     async function fetchSavedRecipes () {
         try {
