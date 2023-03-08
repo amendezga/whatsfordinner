@@ -7,7 +7,7 @@ function Main(){
     const API_URL = "http://localhost:2000/refrigerator"
     const [refrigerator,setRefrigerator]=useState(null)
 
-    const getIngredient=async()=>{
+    const getIngredient= async()=>{
         try{
             const reponse = await fetch(API_URL,{
                 method:'GET'
