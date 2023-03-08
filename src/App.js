@@ -3,7 +3,6 @@ import './App.css';
 import React from 'react';
 import Nav from './components/Nav.js';
 import Footer from './components/Footer.js';
-import Main from './components/Main';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -13,7 +12,6 @@ function App() {
     
       <Nav />
       {/* new stuff goes here */}
-      <Main />
       <Footer />
     
       </header>
