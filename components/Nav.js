@@ -16,13 +16,13 @@ function Nav() {
             Menu
           </button>
           <ul className={isMenuOpen ? 'open' : ''}>
-            <li><a href="#">My Refrigerator</a></li>
-            <li><a href="#">My Recipes</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="/refrigerator">My Refrigerator</a></li>
+            <li><a href="/recipes">Recipes</a></li>
+            <li><a href="/about">About</a></li>
           </ul>
         </li>
-        <li class="recipes"><a href="#">Recipes</a></li>
-        <li class="Login"><a href="#">Log in</a></li>
+        <li class="recipes"><a href="/recipes">Recipes</a></li>
+        <li class="login"><a href="/login">Log in</a></li>
       </ul>
     </nav>
   );
