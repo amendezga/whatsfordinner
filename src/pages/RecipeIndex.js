@@ -7,7 +7,7 @@ function RecipeIndex (props) {
             return (
                 <div key={recipe._id}>
                     <img src={recipe.image} alt={recipe.name} />
-                    <Link to={`recipes/${recipe._id}`} >
+                    <Link to={`${recipe._id}`} >
                         <h1>{recipe.name}</h1>
                     </Link>
                 </div>
