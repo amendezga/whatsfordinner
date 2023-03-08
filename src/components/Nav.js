@@ -1,21 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
+import {Link} from 'react-router-dom';
 
 function Nav() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleMenuClick = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   return (
     <nav>
       <ul>
         <li>
-          <button onClick={handleMenuClick}>
             Menu
-          </button>
-          <ul className={isMenuOpen ? 'open' : ''}>
+          <ul>
             <li><a href="/refrigerator">My Refrigerator</a></li>
             <li><a href="/recipes">Recipes</a></li>
             <li><a href="/about">About</a></li>
