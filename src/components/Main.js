@@ -15,8 +15,22 @@ function Main(){
         setRefrigerator(ingredients)
         }catch(error){
             console.log("something wrong or empty refrigerator")
-        }
-}
+        }}
+
+    const createIngredient = async (ingredient) => {
+        try {
+            await fetch(API_URL, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'Application/json',
+                  },
+                  body: JSON.stringify(ingredient),
+                });
+                getIngredient();
+            } catch (error) {
+              // TODO: Add a task we wish to perform in the event of an error
+            }
+          }
 
 useEffect(()=>{
     getIngredient();
@@ -24,7 +38,7 @@ useEffect(()=>{
 return(
     <main>
         <Routes>
-        <Route path="/refrigerator" element={<Refrigerator refrigerator={refrigerator}/> }/>
+        <Route path="/refrigerator" element={<Refrigerator refrigerator={refrigerator} createIngredient={createIngredient}/> }/>
         </Routes>
     </main>
 )
