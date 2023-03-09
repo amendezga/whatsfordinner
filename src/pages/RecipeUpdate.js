@@ -42,7 +42,7 @@ function RecipeUpdate (props) {
             <input type="text" value={formState.ingredients} name="ingredients" placeholder="ingredients" onChange={handleChange} />
             <input type="number" value={formState.nutrInfo.cal} name="cal" placeholder="calories" onChange={(evt) => {handleChange(evt)}} />
             <input type="number" value={formState.nutrInfo.fat} name="fat" placeholder="total fat" onChange={(evt) => {handleChange(evt)}} />
-            <input type="number" value={formState.nutrInfo.chol} name="chol" placeholder="cholesterol" onChange={() => {handleChange()}} />
+            <input type="number" value={formState.nutrInfo.chol} name="chol" placeholder="cholesterol" onChange={(evt) => {handleChange(evt)}} />
             <input type="number" value={formState.nutrInfo.sod} name="sod" placeholder="sodium" onChange={(evt) => {handleChange(evt)}} />
             <input type="number" value={formState.nutrInfo.carbs} name="carbs" placeholder="total carbohydrates" onChange={(evt) => {handleChange(evt)}} />
             <input type="number" value={formState.nutrInfo.protein} name="protein" placeholder="protein" onChange={(evt) => {handleChange(evt)}} />
