@@ -1,9 +1,16 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function RecipeShow (props) {
 
     const { id } = useParams();
+    const navigate = useNavigate();
     const recipe = props.recipes ? props.recipes.find((r) => { return r._id === id }) : null;
+
+
+    function handleDelete () {
+        props.deleteRecipe(recipe._id);
+        navigate('/recipes');
+    }
 
     function loaded () {
         return (
@@ -13,6 +20,7 @@ function RecipeShow (props) {
                     <h1>{recipe.name}</h1>
                     <button>Mark as eaten today</button>
                     <button>Edit recipe</button>
+                    <button onClick={handleDelete}>Remove Saved Recipe</button>
                 </div>
                 <ul className='labels'>
                     <h4>Health Labels:</h4>

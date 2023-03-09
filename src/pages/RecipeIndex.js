@@ -10,7 +10,6 @@ function RecipeIndex (props) {
                     <Link to={`${recipe._id}`} >
                         <h1>{recipe.name}</h1>
                     </Link>
-                    <button>Remove Saved Recipe</button>
                 </div>
             );
         });
