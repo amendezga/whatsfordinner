@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import RecipeIndex from '../pages/RecipeIndex';
 import RecipeShow from '../pages/RecipeShow';
+import RecipeUpdate from '../pages/RecipeUpdate';
 
 function RecipesMain () {
 
@@ -52,7 +53,6 @@ function RecipesMain () {
             });
             return recipesCopy;
         });
-        console.log(savedRecipes);
     }
 
     useEffect(() => {
@@ -64,13 +64,17 @@ function RecipesMain () {
         <main>
             <Routes>
                 <Route path='/recipes' element={ <RecipeIndex recipes={savedRecipes} />} />
-                <Route path='/recipes/:id' element={
-                <RecipeShow
-                recipes={savedRecipes}
-                deleteRecipe={deleteSavedRecipe}
-                handleClick={handleEatenTodayClick}
-                />}
+                <Route
+                    path='/recipes/:id'
+                    element={
+                        <RecipeShow
+                            recipes={savedRecipes}
+                            deleteRecipe={deleteSavedRecipe}
+                            handleClick={handleEatenTodayClick}
+                        />
+                    }
                 />
+                <Route path='/recipes/edit/:id' element={ <RecipeUpdate recipes={savedRecipes} updateRecipe={updateSavedRecipe} /> }/>
                 {/* <Route path='nutrition' element={ <Nutrtition recipes={savedRecipes} />} /> */}
             </Routes>
         </main>

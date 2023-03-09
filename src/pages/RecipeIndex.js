@@ -19,7 +19,14 @@ function RecipeIndex (props) {
         return <h1>Loading...</h1>
     }
 
-    return props.recipes ? loaded() : loading()
+    return (
+        <>
+        <Link to='new'>
+            Add a new recipe
+        </Link>
+        {props.recipes ? loaded() : loading()}
+        </>
+    );
 }
 
 

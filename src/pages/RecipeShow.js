@@ -19,7 +19,7 @@ function RecipeShow (props) {
                     <img src={recipe.image} alt={recipe.name} />
                     <h1>{recipe.name}</h1>
                     <button onClick={() => {props.handleClick(recipe._id)}}>
-                        {!recipe.eatenToday ? 'Not Eaten Today' : 'Eaten Today'}
+                        {recipe.eatenToday ? 'Not Eaten Today' : 'Eaten Today'}
                         </button>
                     <Link to={`/recipes/edit/${recipe._id}`} >
                         Update Recipe
