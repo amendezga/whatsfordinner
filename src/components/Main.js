@@ -28,9 +28,15 @@ function Main(){
                 });
                 getIngredient();
             } catch (error) {
-              // TODO: Add a task we wish to perform in the event of an error
+             console.log('createIngredient not works')            
             }
           }
+          const deleteIngredient = async (id) => {
+            await fetch(API_URL +"/"+id, {
+              method: 'DELETE',
+            });
+            getIngredient();
+          };
 
 useEffect(()=>{
     getIngredient();
@@ -38,7 +44,10 @@ useEffect(()=>{
 return(
     <main>
         <Routes>
-        <Route path="/refrigerator" element={<Refrigerator refrigerator={refrigerator} createIngredient={createIngredient}/> }/>
+        <Route path="/refrigerator" element={<Refrigerator 
+        refrigerator={refrigerator} 
+        createIngredient={createIngredient}
+        deleteIngredient={deleteIngredient}/> }/>
         </Routes>
     </main>
 )

@@ -1,5 +1,5 @@
+import { useParams } from 'react-router-dom';
 import {useState}from 'react';
-
  function Refrigerator(props){
     const[ingredient,setIngredient] = useState({
         name:"",
@@ -24,10 +24,10 @@ import {useState}from 'react';
       }
     const loaded=()=>{
         return props.refrigerator.map((ingredient) => (
-            <div className="ingredient">
+            <div key={ingredient._id} className="ingredient">
             <p>{ingredient.name}</p>
             <span>
-                <button>Delete</button>
+                <button onClick={()=>props.deleteIngredient(ingredient._id)}>Delete</button>
                 <button>Edit</button>
             </span>
             </div>)
@@ -36,7 +36,8 @@ import {useState}from 'react';
     return (
     <div className ="refrigerator">  
         <h2>What we have in the refrigerator?</h2>
-        {!props.refrigerator? loading():loaded()}
+        <div className ="ingredients">
+        {!props.refrigerator? loading():loaded()}</div>
         <form onSubmit={handleSubmit}>
             <input
             type="text"
