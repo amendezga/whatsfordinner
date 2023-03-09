@@ -8,7 +8,7 @@ function RecipesMain () {
 
     const [savedRecipes, setSavedRecipes] = useState(null);
 
-    const recipesURL = 'http://localhost:2000/recipes';
+    const recipesURL = 'http://localhost:2000/recipes/';
 
     async function fetchSavedRecipes () {
         try {
@@ -20,6 +20,13 @@ function RecipesMain () {
         }
     }
 
+    async function deleteSavedRecipe (id) {
+        await fetch(recipesURL + id, {
+            method: 'DELETE',
+        });
+        fetchSavedRecipes();
+    }
+
     useEffect(() => {
         fetchSavedRecipes();
     }, []);
@@ -29,7 +36,7 @@ function RecipesMain () {
         <main>
             <Routes>
                 <Route path='/recipes' element={ <RecipeIndex recipes={savedRecipes} />} />
-                <Route path='/recipes/:id' element={ <RecipeShow recipes={savedRecipes} />} />
+                <Route path='/recipes/:id' element={ <RecipeShow recipes={savedRecipes} deleteRecipe={deleteSavedRecipe} />} />
                 {/* <Route path='nutrition' element={ <Nutrtition recipes={savedRecipes} />} /> */}
             </Routes>
         </main>
