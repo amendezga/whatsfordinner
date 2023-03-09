@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import Refrigerator from "../pages/Refrigerator"
 function Main(){
     // import ingredient from backend
-    // (Make sure the port!!!!)
     const API_URL = "http://localhost:2000/refrigerator"
     const [refrigerator,setRefrigerator]=useState(null)
 
@@ -25,8 +24,7 @@ useEffect(()=>{
 return(
     <main>
         <Routes>
-            <Route path="/" element={<Refrigerator refrigerator={refrigerator}/> }/>
-            {/* <MakeableFood/> */}
+        <Route path="/refrigerator" element={<Refrigerator refrigerator={refrigerator}/> }/>
         </Routes>
     </main>
 )

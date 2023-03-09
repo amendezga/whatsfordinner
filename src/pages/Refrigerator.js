@@ -11,10 +11,11 @@
             )}
 
     return (
-    <>
+    <>  
         <h2>What we have in the refrigerator?</h2>
-        {!props.refrigerator? loading():loaded()}
         <button>add more Ingredient</button>
+        {!props.refrigerator? loading():loaded()}
+       
     </>
     )}
 export default Refrigerator;
