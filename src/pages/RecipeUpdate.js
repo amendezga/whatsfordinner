@@ -10,7 +10,7 @@ function RecipeUpdate (props) {
     const [formState, setFormState] = useState(recipe);
 
     function handleChange (evt) {
-        let nutrInfo = 'nutrInfo'
+        const nutrInfo = 'nutrInfo'
         if (evt.target.attributes.type.value !== 'number') {
             setFormState({
                 ...formState,
@@ -36,16 +36,36 @@ function RecipeUpdate (props) {
     return (
         <div>
        <form onSubmit={handleSubmit} autoComplete="off" >
-            <input type="text" value={formState.name} name="name" placeholder="recipe name" onChange={handleChange} />
-            <input type="text" value={formState.image} name="image" placeholder="recipe image" onChange={handleChange} />
-            <input type="text" value={formState.healthLabel} name="healthLabel" placeholder="Health Label" onChange={handleChange} />
-            <input type="text" value={formState.ingredients} name="ingredients" placeholder="ingredients" onChange={handleChange} />
-            <input type="number" value={formState.nutrInfo.cal} name="cal" placeholder="calories" onChange={(evt) => {handleChange(evt)}} />
-            <input type="number" value={formState.nutrInfo.fat} name="fat" placeholder="total fat" onChange={(evt) => {handleChange(evt)}} />
-            <input type="number" value={formState.nutrInfo.chol} name="chol" placeholder="cholesterol" onChange={(evt) => {handleChange(evt)}} />
-            <input type="number" value={formState.nutrInfo.sod} name="sod" placeholder="sodium" onChange={(evt) => {handleChange(evt)}} />
-            <input type="number" value={formState.nutrInfo.carbs} name="carbs" placeholder="total carbohydrates" onChange={(evt) => {handleChange(evt)}} />
-            <input type="number" value={formState.nutrInfo.protein} name="protein" placeholder="protein" onChange={(evt) => {handleChange(evt)}} />
+        <label>Recipe Name:
+            <input type="text" value={formState.name} name="name" onChange={handleChange} />
+        </label>
+        <label>Image:
+            <input type="text" value={formState.image} name="image" onChange={handleChange} />
+        </label>
+        <label>Health Labels:
+            <input type="text" value={formState.healthLabel} name="healthLabel" onChange={handleChange} />
+        </label>
+        <label>Ingredients:
+            <input type="text" value={formState.ingredients} name="ingredients" onChange={handleChange} />
+        </label>
+        <label>Calories:
+            <input type="number" value={formState.nutrInfo.cal} name="cal" onChange={handleChange} />
+        </label>
+        <label>Total Fat:
+            <input type="number" value={formState.nutrInfo.fat} name="fat" onChange={handleChange} />
+        </label>
+        <label>Cholesterol:
+            <input type="number" value={formState.nutrInfo.chol} name="chol" onChange={handleChange} />
+        </label>
+        <label>Sodium:
+            <input type="number" value={formState.nutrInfo.sod} name="sod" onChange={handleChange} />
+        </label>
+        <label>Total Carbohydrates:
+            <input type="number" value={formState.nutrInfo.carbs} name="carbs" onChange={handleChange} />
+        </label>
+        <label>Protein:
+            <input type="number" value={formState.nutrInfo.protein} name="protein" onChange={handleChange} />
+        </label>
             <input type="submit" value="Update Recipe" />
        </form>
         </div>
