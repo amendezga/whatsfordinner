@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Refrigerator from "../pages/Refrigerator"
+
 function Main(){
     // import ingredient from backend
     const API_URL = "http://localhost:2000/refrigerator"
@@ -37,6 +38,16 @@ function Main(){
             });
             getIngredient();
           };
+          const editIngredient = async(ingredient,id)=>{
+            await fetch(API_URL+"/"+id,{
+            method:'PUT',
+            header:{
+                'Conmtent-Type':'Application/json'
+            },
+            body:JSON.stringify(ingredient),
+            })
+            getIngredient();
+          }
 
 useEffect(()=>{
     getIngredient();
@@ -47,7 +58,9 @@ return(
         <Route path="/refrigerator" element={<Refrigerator 
         refrigerator={refrigerator} 
         createIngredient={createIngredient}
-        deleteIngredient={deleteIngredient}/> }/>
+        deleteIngredient={deleteIngredient}
+        editIngredient={editIngredient}
+        /> }/>
         </Routes>
     </main>
 )
