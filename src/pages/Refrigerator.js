@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import MakeAbleFood from "../components/MakeableFood";
 // import EditIngredient from '../components/EditIngredient';
 function Refrigerator(props) {
   const [ingredient, setIngredient] = useState({name: "",});
   const [availableRecipes, setAvailableRecipes] = useState(null);
-  const [madeFood, setmadeFood] = useState(null);
+  const [madeFood, setMadeFood] = useState([]);
   const handleChange = (event) => {
     setIngredient((prevState) => ({
       ...prevState,
@@ -26,8 +26,7 @@ function Refrigerator(props) {
     return props.refrigerator.map((ingredient) => (
       <div
         key={ingredient._id}
-        className={madeFood ? "usedForRecipe ingredient" : "ingredient"}
-      >
+        className={madeFood.includes(ingredient.name)?"usedForRecipe ingredient" : "ingredient"}>
         <p>{ingredient.name}</p>
         <span>
           <button onClick={() => props.deleteIngredient(ingredient._id)}>
@@ -42,6 +41,7 @@ function Refrigerator(props) {
   const recipes = [
     { name: "bobatea", ingredients: ["boba", "milktea"] },
     { name: "banana", ingredients: ["banana"] },
+    { name: "banana split",ingredients:["banana","milk","sugar", "water"]}
   ];
 
   const nonClickMadeFood=()=>{
@@ -57,17 +57,26 @@ function Refrigerator(props) {
           return ingredFromRefri.find((i) => i.name === ingredient);
         });
       }).map((recipe) => recipe))
-      // console.log(availableRecipes)
   };
 
-  
   const usedForRecipe = (recipe) => {
-    const matchedIngred = props.refrigerator.find(
-      (u) => u.name === recipe.name
-    );
-    console.log(matchedIngred.name);
-    setmadeFood(true);
+    if (recipe ==null){
+      setMadeFood([""])
+    }
+    const matchedIngred = props.refrigerator.filter(
+       (r) =>(recipe.ingredients.includes(r.name))).map(obj => obj.name)
+       //console.log(matchedIngred)
+       setMadeFood(matchedIngred);
+
   };
+  const addToList=()=>{
+    const removeIngrId = props.refrigerator.filter(
+    (r) => (madeFood.includes(r.name)?props.deleteIngredient(r._id):null)
+    )}
+
+  useEffect(()=>{
+    // console.log(madeFood)
+}, []);
 
   return (
     <div className="refrigerator">
@@ -93,8 +102,10 @@ function Refrigerator(props) {
       <MakeAbleFood
       usedForRecipe={usedForRecipe}
       availableRecipes={availableRecipes}
+      deleteIngredient={props.deleteIngredient}
       />}
-  
+      {madeFood.length>0?<button onClick={addToList}>add to today's recipe</button>:null}
+
       
     </div>
   );

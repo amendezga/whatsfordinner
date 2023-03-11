@@ -84,4 +84,5 @@ div.ingredients {
 div.usedForRecipe {
   color: red;
   border: solid blue 5px;
+  border-radius: 10%;
 }
