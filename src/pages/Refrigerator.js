@@ -12,7 +12,7 @@
 
     return (
     <>
-        <h2>What we have in the refrigerator?</h2>
+        <h2>What do we have in the refrigerator?</h2>
         {!props.refrigerator? loading():loaded()}
         <button>add more Ingredient</button>
     </>
