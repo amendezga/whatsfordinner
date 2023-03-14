@@ -12,7 +12,7 @@
 }
 
 nav {
-  background-color: #3EB489;
+  background-color: #3eb489;
   overflow: hidden;
   width: 100%;
   height: 60px;
@@ -53,7 +53,7 @@ nav li.active {
 }
 
 footer {
-  background-color: #3EB489;
+  background-color: #3eb489;
   color: #fff;
   padding: 0px;
   text-align: center;
@@ -67,4 +67,22 @@ footer {
 footer p {
   padding-bottom: 10px;
   font-size: 20px;
+}
+div .refrigerator {
+  display: flex;
+  flex-direction: column;
+}
+div.ingredient {
+  display: flex;
+  flex-direction: column;
+}
+div.ingredients {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(150px, 1fr));
+}
+
+div.usedForRecipe {
+  color: red;
+  border: solid blue 5px;
+  border-radius: 10%;
 }
