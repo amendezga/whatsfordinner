@@ -15,7 +15,7 @@ function RecipeShow (props) {
     function loaded () {
         return (
             <>
-                <div className='recipeInfo'>
+                <div key={recipe._id} className='recipeInfo'>
                     <img src={recipe.image} alt={recipe.name} />
                     <h1>{recipe.name}</h1>
                     <button onClick={() => {props.handleClick(recipe._id)}}>
