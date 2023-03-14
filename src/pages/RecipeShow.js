@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 function RecipeShow (props) {
 
@@ -18,8 +18,12 @@ function RecipeShow (props) {
                 <div className='recipeInfo'>
                     <img src={recipe.image} alt={recipe.name} />
                     <h1>{recipe.name}</h1>
-                    <button>Mark as eaten today</button>
-                    <button>Edit recipe</button>
+                    <button onClick={() => {props.handleClick(recipe._id)}}>
+                        {recipe.eatenToday ? 'Not Eaten Today' : 'Eaten Today'}
+                        </button>
+                    <Link to={`/recipes/edit/${recipe._id}`} >
+                        Update Recipe
+                    </Link>
                     <button onClick={handleDelete}>Remove Saved Recipe</button>
                 </div>
                 <ul className='labels'>
