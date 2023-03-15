@@ -86,3 +86,43 @@ div.usedForRecipe {
   border: solid blue 5px;
   border-radius: 10%;
 }
+
+.generate-recipes {
+  width: 250px;
+  align-self: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+ins {
+  text-decoration: none;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 200px;
+}
+
+.recipeInfo {
+  width: 50%;
+  align-self: left;
+}
+
+.nutrition {
+  width: 50%;
+}
