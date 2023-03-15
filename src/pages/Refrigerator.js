@@ -100,7 +100,9 @@ function Refrigerator(props) {
 
   return (
     <div className="refrigerator">
+
       <h2>What we have in the refrigerator?</h2>
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -114,6 +116,7 @@ function Refrigerator(props) {
       <div className="ingredients">
         {!props.refrigerator ? loading() : loaded()}
       </div>
+
       <form onSubmit={handleQuerySumbit}>
         <input
           type="text"
@@ -127,6 +130,11 @@ function Refrigerator(props) {
       <h3>Here is recipe based on query:</h3>
       <button onClick={getAvailableRecipes}>
         Click for see today's availableRecipe
+
+      <h3>Here is something we can make today</h3>
+      <button className="generate-recipes" onClick={clickMadeFood}>
+        Click for today's available recipes
+
       </button>
       {!availableRecipes?nonClickMadeFood():
       <MakeAbleFood
