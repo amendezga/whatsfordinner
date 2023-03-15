@@ -66,7 +66,6 @@ function Main(){
 
 useEffect(()=>{
     getIngredient();
-    // getRecipes("banana milk") 
 }, []);
 return(
     <main>

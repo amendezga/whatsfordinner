@@ -1,12 +1,12 @@
-import { useParams } from "react-router-dom";
 import { useState,useEffect } from "react";
 import MakeAbleFood from "../components/MakeableFood";
-// import EditIngredient from '../components/EditIngredient';
+
 function Refrigerator(props) {
   const [ingredient, setIngredient] = useState({name: "",});
   const [query, setQuery] = useState({name: "",});
   const [availableRecipes, setAvailableRecipes] = useState(null);
-  const [madeFood, setMadeFood] = useState([]);
+  const [userList, setUserList] = useState([]);
+  
   const handleChange = (event) => {
     setIngredient((prevState) => ({
       ...prevState,
@@ -40,33 +40,36 @@ function Refrigerator(props) {
     return props.refrigerator.map((ingredient) => (
       <div
         key={ingredient._id}
-        className={madeFood.includes(ingredient.name)?"usedForRecipe ingredient" : "ingredient"}>
+        className={userList.includes(ingredient.name)?
+        "usedForRecipe ingredient" : "ingredient"}>
         <p>{ingredient.name}</p>
         <span>
           <button onClick={() => props.deleteIngredient(ingredient._id)}>
             Delete
           </button>
-          {/* <button onClick={handleEdit}>Edit</button> */}
         </span>
       </div>
     ));
   };
 
-  const recipes = [
-    { name: "bobatea", ingredients: ["boba", "milktea"] },
-    { name: "banana", ingredients: ["banana"] },
-    { name: "banana split",ingredients:["banana","milk","sugar", "water"]}
-  ];
+  // const recipes = [
+  //   { name: "bobatea", ingredients: ["boba", "milktea"] },
+  //   { name: "banana", ingredients: ["banana"] },
+  //   { name: "banana split",ingredients:["banana","milk","sugar", "water"]}
+  // ];
 
   const nonClickMadeFood=()=>{
     return<h1>Please click the button to see what you can make to eat!</h1>
   }
 
-  const getAvailableRecipes = () => {
+  const  getAvailableRecipes=()=> {
     setAvailableRecipes(null)
-    const ingredFromRefri = props.refrigerator;
-    // console.log(props.recipes.hits)
+    if (!props.recipes){
+      return <h1>please enter query to start</h1>
+    }
     setAvailableRecipes(props.recipes.hits)
+    
+    // const ingredFromRefri = props.refrigerator;
     // setAvailableRecipes(props.recipes.hits
     //   .filter((recipe) => {
     //     return recipe.ingredients.every((ingredient) => {
@@ -77,21 +80,22 @@ function Refrigerator(props) {
 
   const usedForRecipe = (recipe) => {
     if (recipe ==null){
-      setMadeFood([""])
+      setUserList([""])
     }
     const matchedIngred = props.refrigerator.filter(
        (r) =>(recipe.ingredients.includes(r.name))).map(obj => obj.name)
-       setMadeFood(matchedIngred);
+       setUserList(matchedIngred);
 
   };
   const addToList=()=>{
+    
     // const removeIngrId = props.refrigerator.filter(
     // (r) => (madeFood.includes(r.name)?props.deleteIngredient(r._id):null)
     // )
   }
 
   useEffect(()=>{
-    // console.log(madeFood)
+    getAvailableRecipes();
 }, []);
 
   return (
@@ -131,9 +135,7 @@ function Refrigerator(props) {
       deleteIngredient={props.deleteIngredient}
       getRecipes={props.getRecipes}
       />}
-      {madeFood.length>0?<button onClick={addToList}>add to today's recipe</button>:null}
-
-      
+      {userList.length>0?<button onClick={addToList}>add to today's recipe</button>:null}
     </div>
   );
 }
