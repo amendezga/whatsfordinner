@@ -17,13 +17,13 @@ function MakeAbleFood(props){
         props.usedForRecipe(null)
     }
 return(
-    <><h1>Here is avail recipes</h1>
+    <><h1>Available Recipes</h1>
     <div className ="ingredients">
     
     {
         availableRecipes.map((availableRecipe,index)=>{
          return( <div className={circled===index?"usedForRecipe ingredient":"ingredient"}>
-         {availableRecipe.name}
+         {availableRecipe.recipe.label}
          <button onClick={(event) => handleAddClick(event, index)}>AddTomake</button>
          
          <button onClick={(event) => handleRemoveClick(event, index)}>Remove</button>
