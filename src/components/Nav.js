@@ -1,24 +1,38 @@
-import React from 'react';
-import { useState } from 'react';
-import {Link} from 'react-router-dom';
+import { login, logout } from '../firebase';
+import { Link } from 'react-router-dom';
 
-function Nav() {
+function Nav (props) {
 
   return (
     <nav>
       <ul>
+        { props.user ?
+        <>
+        <li>Welcome, {props.user.displayName}</li>
+        <li>
             <Link to='/refrigerator'>
-            <li><span> My Refrigerator </span></li>
+            <li> My Refrigerator </li>
             </Link>
+          </li>
+          <li>
             <Link to='/recipes'>
-            <li><span> Recipes </span></li>
+            <li> My Recipes </li>
             </Link>
+          </li>
+          <li>
             <Link to='/about'>
-            <li><span> About </span></li>
+            <li> About </li>
             </Link>
-            <Link to='/login'>
-            <li><span> Log In </span></li>
-            </Link>
+          </li>
+        <li>
+          <button onClick={logout}>Logout</button>
+        </li>
+        </>
+        :
+        <li>
+          <button onClick={login}>Login</button>
+        </li>
+      }
       </ul>
     </nav>
   );
