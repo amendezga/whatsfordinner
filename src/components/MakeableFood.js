@@ -17,7 +17,7 @@ function MakeAbleFood(props){
         props.usedForRecipe(null)
     }
 return(
-    <><h1>Here is avail recipes</h1>
+    <><h1>Available Recipes</h1>
     <div className ="ingredients">
     
     {
