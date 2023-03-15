@@ -72,8 +72,8 @@ function Refrigerator(props) {
     // const ingredFromRefri = props.refrigerator;
     // setAvailableRecipes(props.recipes.hits
     //   .filter((recipe) => {
-    //     return recipe.ingredients.every((ingredient) => {
-    //       return ingredFromRefri.find((i) => i.name === ingredient);
+    //     return recipe.ingredientLines.every((ingredient) => {
+    //       return ingredFromRefri.some((i) => i.name == ingredient);
     //     });
     //   }).map((recipe) => recipe))
   };

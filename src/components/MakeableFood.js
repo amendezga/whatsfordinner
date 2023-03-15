@@ -8,9 +8,7 @@ function MakeAbleFood(props){
 
     const handleAddClick=(event,index)=>{
         setCircle(index)
-        // console.log(availableRecipes[index])
         props.usedForRecipe(availableRecipes[index])
-
     }
     const handleRemoveClick=(event)=>{
         setCircle("")
@@ -19,7 +17,6 @@ function MakeAbleFood(props){
 return(
     <><h1>Here is avail recipes</h1>
     <div className ="ingredients">
-    
     {
         availableRecipes.map((availableRecipe,index)=>{
          return( <div className={circled===index?"usedForRecipe ingredient":"ingredient"}>
