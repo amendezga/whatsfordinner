@@ -1,47 +1,62 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import RecipeIndex from '../pages/RecipeIndex';
 import RecipeShow from '../pages/RecipeShow';
 import RecipeUpdate from '../pages/RecipeUpdate';
 
-function RecipesMain () {
+function RecipesMain (props) {
 
     const [savedRecipes, setSavedRecipes] = useState(null);
 
     const recipesURL = 'http://localhost:2000/recipes/';
 
-    async function fetchSavedRecipes () {
+    const fetchSavedRecipes = useCallback(async () => {
         try {
-            const response = await fetch(recipesURL);
+            const token = await props.user.getIdToken();
+            const response = await fetch(recipesURL, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                    }
+                });
             const data = await response.json();
             setSavedRecipes(data);
         } catch (error) {
             console.log(error);
         }
-    }
+    }, [props.user]);
 
     async function deleteSavedRecipe (id) {
-        await fetch(recipesURL + id, {
-            method: 'DELETE',
-        });
+        if (props.user) {
+            const token = await props.user.getIdToken();
+            await fetch(recipesURL + id, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+        }
         fetchSavedRecipes();
     }
 
     async function updateSavedRecipe (recipe, id) {
-        await fetch(recipesURL + id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'Application/json'
-            },
-            body: JSON.stringify(recipe)
-        });
+        if (props.user) {
+            const token = await props.user.getIdToken();
+            await fetch(recipesURL + id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'Application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify(recipe)
+            });
+        }
         fetchSavedRecipes();
     }
 
     function handleEatenTodayClick (id) {
         setSavedRecipes((savedRecipes) => {
-            // console.log(savedRecipes);
             const recipesCopy = [...savedRecipes];
             let foundIndex = recipesCopy.findIndex((r) => {
                 return r._id === id
@@ -56,8 +71,12 @@ function RecipesMain () {
     }
 
     useEffect(() => {
-        fetchSavedRecipes();
-    }, []);
+        if (props.user) {
+            fetchSavedRecipes();
+        } else {
+            setSavedRecipes(null);
+        }
+    }, [props.user, fetchSavedRecipes]);
 
 
     return (
