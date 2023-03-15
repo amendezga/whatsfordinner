@@ -57,7 +57,6 @@ function RecipesMain (props) {
 
     function handleEatenTodayClick (id) {
         setSavedRecipes((savedRecipes) => {
-            // console.log(savedRecipes);
             const recipesCopy = [...savedRecipes];
             let foundIndex = recipesCopy.findIndex((r) => {
                 return r._id === id
@@ -75,7 +74,7 @@ function RecipesMain (props) {
         if (props.user) {
             fetchSavedRecipes();
         } else {
-            fetchSavedRecipes(null);
+            setSavedRecipes(null);
         }
     }, [props.user, fetchSavedRecipes]);
 
