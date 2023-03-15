@@ -4,6 +4,7 @@ import MakeAbleFood from "../components/MakeableFood";
 // import EditIngredient from '../components/EditIngredient';
 function Refrigerator(props) {
   const [ingredient, setIngredient] = useState({name: "",});
+  const [query, setQuery] = useState({name: "",});
   const [availableRecipes, setAvailableRecipes] = useState(null);
   const [madeFood, setMadeFood] = useState([]);
   const handleChange = (event) => {
@@ -16,6 +17,19 @@ function Refrigerator(props) {
     event.preventDefault();
     props.createIngredient(ingredient);
     setIngredient({
+      name: "",
+    });
+  };
+  const handleQueryChange = (event) => {
+    setQuery((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+  };
+  const handleQuerySumbit = (event) => {
+    event.preventDefault();
+    props.getRecipes(query.name)
+    setQuery({
       name: "",
     });
   };
@@ -48,15 +62,17 @@ function Refrigerator(props) {
     return<h1>Please click the button to see what you can make to eat!</h1>
   }
 
-  const clickMadeFood = () => {
+  const getAvailableRecipes = () => {
     setAvailableRecipes(null)
     const ingredFromRefri = props.refrigerator;
-    setAvailableRecipes(recipes
-      .filter((recipe) => {
-        return recipe.ingredients.every((ingredient) => {
-          return ingredFromRefri.find((i) => i.name === ingredient);
-        });
-      }).map((recipe) => recipe))
+    // console.log(props.recipes.hits)
+    setAvailableRecipes(props.recipes.hits)
+    // setAvailableRecipes(props.recipes.hits
+    //   .filter((recipe) => {
+    //     return recipe.ingredients.every((ingredient) => {
+    //       return ingredFromRefri.find((i) => i.name === ingredient);
+    //     });
+    //   }).map((recipe) => recipe))
   };
 
   const usedForRecipe = (recipe) => {
@@ -65,14 +81,14 @@ function Refrigerator(props) {
     }
     const matchedIngred = props.refrigerator.filter(
        (r) =>(recipe.ingredients.includes(r.name))).map(obj => obj.name)
-       //console.log(matchedIngred)
        setMadeFood(matchedIngred);
 
   };
   const addToList=()=>{
-    const removeIngrId = props.refrigerator.filter(
-    (r) => (madeFood.includes(r.name)?props.deleteIngredient(r._id):null)
-    )}
+    // const removeIngrId = props.refrigerator.filter(
+    // (r) => (madeFood.includes(r.name)?props.deleteIngredient(r._id):null)
+    // )
+  }
 
   useEffect(()=>{
     // console.log(madeFood)
@@ -81,9 +97,6 @@ function Refrigerator(props) {
   return (
     <div className="refrigerator">
       <h2>What we have in the refrigerator?</h2>
-      <div className="ingredients">
-        {!props.refrigerator ? loading() : loaded()}
-      </div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -94,8 +107,21 @@ function Refrigerator(props) {
         />
         <input type="submit" value="Add Ingredient" />
       </form>
-      <h3>Here is something we can make today</h3>
-      <button onClick={clickMadeFood}>
+      <div className="ingredients">
+        {!props.refrigerator ? loading() : loaded()}
+      </div>
+      <form onSubmit={handleQuerySumbit}>
+        <input
+          type="text"
+          value={query.name}
+          name="name"
+          placeholder="banana+milk"
+          onChange={handleQueryChange}
+        />
+        <input type="submit" value="SearchForRecipes" />
+      </form>
+      <h3>Here is recipe based on query:</h3>
+      <button onClick={getAvailableRecipes}>
         Click for see today's availableRecipe
       </button>
       {!availableRecipes?nonClickMadeFood():
@@ -103,6 +129,7 @@ function Refrigerator(props) {
       usedForRecipe={usedForRecipe}
       availableRecipes={availableRecipes}
       deleteIngredient={props.deleteIngredient}
+      getRecipes={props.getRecipes}
       />}
       {madeFood.length>0?<button onClick={addToList}>add to today's recipe</button>:null}
 
