@@ -94,7 +94,9 @@ function Refrigerator(props) {
     // )
   }
 
-
+  useEffect(()=>{
+    getAvailableRecipes();
+}, []);
 
   return (
     <div className="refrigerator">
