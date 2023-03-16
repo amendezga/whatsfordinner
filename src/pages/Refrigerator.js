@@ -130,12 +130,10 @@ function Refrigerator(props) {
       <h3>Here is recipe based on query:</h3>
       <button onClick={getAvailableRecipes}>
         Click for see today's availableRecipe
+      </button>
 
       <h3>Here is something we can make today</h3>
-      <button className="generate-recipes" onClick={clickMadeFood}>
-        Click for today's available recipes
 
-      </button>
       {!availableRecipes?nonClickMadeFood():
       <MakeAbleFood
       usedForRecipe={usedForRecipe}
