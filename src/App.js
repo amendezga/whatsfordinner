@@ -3,6 +3,7 @@ import React from 'react';
 import { auth } from './firebase';
 import { useState, useEffect } from 'react';
 
+
 // components import
 import Main from './components/Main'
 import RecipeMain from './components/RecipesMain';
@@ -25,12 +26,17 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
       <Nav user={user} />
+      {/* <Routes>
+        <Route path="/refrigerator" element={<Main user={user}
+        /> }/>
+        <Route path="/recipe" element={<RecipeMain user={user}
+        /> }/>
+      </Routes> */}
+
       <Main user={user} />
       <RecipeMain user={user} />
       <Footer />
-      </header>
     </div>
   );
 }

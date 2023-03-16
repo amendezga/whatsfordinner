@@ -94,9 +94,9 @@ function Refrigerator(props) {
     // )
   }
 
-  useEffect(()=>{
-    getAvailableRecipes();
-}, []);
+//   useEffect(()=>{
+//     getAvailableRecipes();
+// }, []);
 
   return (
     <div className="refrigerator">
@@ -104,14 +104,14 @@ function Refrigerator(props) {
       <h2>What we have in the refrigerator?</h2>
 
       <form onSubmit={handleSubmit}>
-        <input
+        <input 
           type="text"
           value={ingredient.name}
           name="name"
           placeholder="boba"
           onChange={handleChange}
         />
-        <input type="submit" value="Add Ingredient" />
+        <input className="button-submit" type="submit" value="Add Ingredient" />
       </form>
       <div className="ingredients">
         {!props.refrigerator ? loading() : loaded()}
@@ -125,7 +125,7 @@ function Refrigerator(props) {
           placeholder="banana+milk"
           onChange={handleQueryChange}
         />
-        <input type="submit" value="SearchForRecipes" />
+        <input className="button-submit" type="submit" value="SearchForRecipes" />
       </form>
       <h3>Here is recipe based on query:</h3>
       <button onClick={getAvailableRecipes}>
