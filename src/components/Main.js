@@ -4,7 +4,7 @@ import Refrigerator from "../pages/Refrigerator"
 
 function Main (props) {
     // import ingredient from backend
-    const API_URL = "http://localhost:2000/refrigerator"
+    const API_URL = "https://whatsfordinnerteam.herokuapp.com/refrigerator"
     const [refrigerator,setRefrigerator]=useState(null)
     const [recipes,setRecipes]=useState(null)
 

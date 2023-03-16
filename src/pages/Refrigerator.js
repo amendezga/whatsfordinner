@@ -128,11 +128,9 @@ function Refrigerator(props) {
         <input type="submit" value="SearchForRecipes" />
       </form>
       <h3>Here is recipe based on query:</h3>
-      <button onClick={getAvailableRecipes}>
-        Click for see today's availableRecipe
 
       <h3>Here is something we can make today</h3>
-      <button className="generate-recipes" onClick={clickMadeFood}>
+      <button className="generate-recipes">
         Click for today's available recipes
 
       </button>
