@@ -9,7 +9,7 @@ function RecipesMain (props) {
 
     const [savedRecipes, setSavedRecipes] = useState(null);
 
-    const recipesURL = 'http://localhost:2000/recipes/';
+    const recipesURL = 'https://whatsfordinnerteam.herokuapp.com/recipes/';
 
     const fetchSavedRecipes = useCallback(async () => {
         try {
