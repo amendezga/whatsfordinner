@@ -19,28 +19,26 @@ function RecipeShow (props) {
                 <div className='recipeInfo'>
                     <img src={recipe.image} alt={recipe.name} />
                     <h1>{recipe.name}</h1>
-                    <button onClick={() => {props.handleClick(recipe._id)}}>
+                    {/* <button onClick={() => {props.handleClick(recipe._id)}}>
                         {recipe.eatenToday ? 'Not Eaten Today' : 'Eaten Today'}
-                        </button><br /><br />
-                    <button onClick={handleDelete}>Remove Saved Recipe</button><br /><br />
-                    <Link to={`/recipes/edit/${recipe._id}`} >
+                        </button><br /><br /> */}
+                    <button onClick={handleDelete}>Remove Saved Recipe</button><br />
+                    {/* <Link to={`/recipes/edit/${recipe._id}`} >
                         Update Recipe
-                    </Link><br />
-                <section className='labels'>
-                    <h4>Health Labels:</h4>
-                {recipe.healthLabel.length !== 0 ? 
-                    recipe.healthLabel.map((label) => {
-                        return <ins>{label}</ins>
-                    })
-                    :
-                    <li>none</li>
-                }
+                    </Link><br /> */}
+                <section className='details'>
+                    <h4>Full Recipe Information:</h4>
+                    <p>
+                        <a href={recipe.detailsUrl} target="_blank">Click here to see recipe information</a>
+                    </p>
                 </section>
                 <section className='ingredients'>
                     <h2>Ingredients:</h2>
+                    <ul>
                     {recipe.ingredients.map((i) => {
-                        return <ins>{i}</ins>
+                        return <li>{i}</li>
                     })}
+                    </ul>
                 </section>
                     </div>
                 <div className='nutrition'>

@@ -54,8 +54,8 @@ function App() {
         const formatRecipe = {
             name: handleRecipe.label,
             image: handleRecipe.images.REGULAR.url,
-            healthLabel: ['none'],
-            ingredients: handleRecipe.ingredientLines,
+            detailsUrl: handleRecipe.url,
+            ingredients: [],
             nutrInfo: {
                 cal: handleRecipe.calories / handleRecipe.yield,
                 fat: handleRecipe.totalNutrients.FAT.quantity / handleRecipe.yield,
@@ -66,6 +66,9 @@ function App() {
             },
             eatenToday: false
         }
+        handleRecipe.ingredients.map((i) => {
+            formatRecipe.ingredients.push(i.food);
+        });
         for (const [key, value] of Object.entries(formatRecipe.nutrInfo)) {
             formatRecipe.nutrInfo[key] = Math.round(value);
         }

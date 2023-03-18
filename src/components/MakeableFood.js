@@ -1,5 +1,8 @@
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 function MakeAbleFood(props){
+
+    const navigate = useNavigate();
 
     function matchIngredients () {
 
@@ -18,7 +21,10 @@ function MakeAbleFood(props){
             console.log(isMatched);
             recipeFoodArray = [];
         });
-        console.log('made call');
+    }
+
+    function handleClick (evt) {
+        navigate(`/recipes/preview/${evt.target.className}`);
     }
 
     function loaded () {
@@ -36,8 +42,7 @@ function MakeAbleFood(props){
             {availableRecipe.recipe.ingredients.map((r) => {
                 return <li>{r.food}</li>
          })}</ul> */}
-         
-         <button>See Recipe Details</button>
+         <button onClick={handleClick} className={index}>See Recipe Details</button>
          <button id={index} onClick={props.handleSaveRecipe}>Save Recipe</button>
      </div>)
         })
