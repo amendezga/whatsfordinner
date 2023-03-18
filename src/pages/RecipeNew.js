@@ -4,7 +4,6 @@ import MakeAbleFood from '../components/MakeableFood';
 function RecipeNew (props) {
 
     const [formState, setFormState] = useState({name: ''});
-    const [queryRecipes, setQueryRecipes] = useState('');
 
     function handleQueryChange (evt) {
         setFormState({
@@ -14,8 +13,11 @@ function RecipeNew (props) {
 
     function handleQuerySubmit (evt) {
         evt.preventDefault();
-        props.getRecipes(formState.name);
+        props.getRecipes(formState.name.trim());
         props.setAvailableRecipes(props.fetchRecipes.hits);
+        setFormState({
+            name: ''
+        });
     }
 
     return (
@@ -26,14 +28,12 @@ function RecipeNew (props) {
 	                type="text"
 	                value={formState.name}
 	                name="name"
-	                placeholder="banana+milk"
+	                placeholder="banana, milk"
 	                onChange={handleQueryChange}
 	            />
 	            <input type="submit" value="SearchForRecipes" />
 	        </form>
             <MakeAbleFood availableRecipes={props.availableRecipes} handleSaveRecipe={props.handleSaveRecipe} />
-            <h3>Need to look at recipe details, should pair with the recipe details from the makeable food section?</h3>
-            <h3>need button to confirm saving that particular recipe, using createRecipe function</h3>
         </>
     );
 } 

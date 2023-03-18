@@ -21,7 +21,6 @@ function RecipesMain (props) {
                     }
                 });
             const data = await response.json();
-            console.log(data);
             setSavedRecipes(data);
         } catch (error) {
             console.log(error);
@@ -57,6 +56,7 @@ function RecipesMain (props) {
     }
 
     function handleEatenTodayClick (id) {
+
         setSavedRecipes((savedRecipes) => {
             const recipesCopy = [...savedRecipes];
             let foundIndex = recipesCopy.findIndex((r) => {
@@ -69,6 +69,11 @@ function RecipesMain (props) {
             });
             return recipesCopy;
         });
+        // const recipe = savedRecipes.filter((r) => {
+        //     return r._id === id
+        // });
+        // recipe[0].eatenToday  = !recipe[0].eatenToday;
+        // updateSavedRecipe(recipe, id);
     }
 
     useEffect(() => {
