@@ -5,7 +5,6 @@ function Refrigerator(props) {
   const [ingredient, setIngredient] = useState({name: "",});
   const [query, setQuery] = useState({name: "",});
 
-  
   const handleChange = (event) => {
     setIngredient((prevState) => ({
       ...prevState,
