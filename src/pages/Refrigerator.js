@@ -2,7 +2,7 @@ import { useState,useEffect,useCallback } from "react";
 import MakeAbleFood from "../components/MakeableFood";
 
 function Refrigerator(props) {
-  const [ingredient, setIngredient] = useState({name: "",});
+  const [ingredient, setIngredient] = useState([]);
   const [query, setQuery] = useState({name: "",});
 
   
@@ -81,8 +81,8 @@ function Refrigerator(props) {
       <h3>Here is recipe based on query:</h3>
       <button onClick={getAvailableRecipes}>
         Click for see today's availableRecipe
-      </button>
-      {!availableRecipes?nonClickMadeFood():
+        </button>
+      {props.availableRecipes ? 
       <MakeAbleFood
       refrigerator={props.refrigerator}
       availableRecipes={props.availableRecipes}
