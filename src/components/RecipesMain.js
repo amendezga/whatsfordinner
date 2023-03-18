@@ -4,6 +4,8 @@ import { Routes, Route } from 'react-router-dom';
 import RecipeIndex from '../pages/RecipeIndex';
 import RecipeShow from '../pages/RecipeShow';
 import RecipeUpdate from '../pages/RecipeUpdate';
+import RecipeNew from '../pages/RecipeNew';
+import { async } from '@firebase/util';
 
 function RecipesMain (props) {
 
@@ -26,6 +28,25 @@ function RecipesMain (props) {
             console.log(error);
         }
     }, [props.user]);
+
+    async function createSavedRecipe (recipe) {
+        try {
+            if (props.user) {
+                const token = await props.user.getIdToken();
+                await fetch(recipesURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'Application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(recipe),
+                });
+            fetchSavedRecipes();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     async function deleteSavedRecipe (id) {
         if (props.user) {
@@ -93,7 +114,14 @@ function RecipesMain (props) {
                         />
                     }
                 />
-                <Route path='/recipes/edit/:id' element={ <RecipeUpdate recipes={savedRecipes} updateRecipe={updateSavedRecipe} /> }/>
+                <Route path='/recipes/edit/:id' element={ <RecipeUpdate recipes={savedRecipes} updateRecipe={updateSavedRecipe} /> } />
+                <Route path='/recipes/new' element={
+                <RecipeNew
+                    getRecipes={props.getRecipes}
+                    createRecipe={createSavedRecipe}
+                    availableRecipes={props.availableRecipes}
+                    setAvailableRecipes={props.setAvailableRecipes}
+                    fetchRecipes={props.fetchRecipes} />} />
                 {/* <Route path='nutrition' element={ <Nutrtition recipes={savedRecipes} />} /> */}
             </Routes>
         </main>

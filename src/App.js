@@ -13,7 +13,8 @@ import Footer from './components/Footer.js';
 function App() {
 
   const [user, setUser] = useState(null);
-  const [recipes,setRecipes] = useState(null);
+  const [fetchRecipes, setFetchRecipes] = useState(null);
+  const [availableRecipes, setAvailableRecipes] = useState(null);
 
   const getRecipes = async(query)=>{
     const APP_ID = "f01b9fa1"
@@ -22,9 +23,9 @@ function App() {
     try{
         const response = await fetch(Recipe_API_URL,{
             method:'GET'
-        })
+        });
         const recipes = await response.json();
-    setRecipes(recipes)
+    setFetchRecipes(recipes);
     }catch(error){
         console.log(error);
     }}
@@ -40,12 +41,24 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-      <Nav user={user} />
-      <Main user={user} getRecipes={getRecipes} recipes={recipes} />
-      <RecipeMain user={user} getRecipes={getRecipes} />
-      <Footer />
-      </header>
+        <header className="App-header">
+        <Nav user={user} />
+        <Main
+            user={user}
+            getRecipes={getRecipes}
+            recipes={fetchRecipes}
+            availableRecipes={availableRecipes}
+            setAvailableRecipes={setAvailableRecipes}
+        />
+        <RecipeMain
+            user={user}
+            getRecipes={getRecipes}
+            fetchRecipes={fetchRecipes}
+            availableRecipes={availableRecipes}
+            setAvailableRecipes={setAvailableRecipes}
+        />
+        <Footer />
+        </header>
     </div>
   );
 }

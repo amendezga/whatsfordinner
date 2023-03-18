@@ -88,6 +88,8 @@ return(
         editIngredient={editIngredient}
         getRecipes={props.getRecipes}
         recipes={props.recipes}
+        availableRecipes={props.availableRecipes}
+        setAvailableRecipes={props.setAvailableRecipes}
         /> }/>
         </Routes>
     </main>
