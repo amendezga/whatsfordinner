@@ -42,7 +42,6 @@ function RecipeUpdate (props) {
             ]
         });
     }
-    console.log(formState);
     
     return (
         <div>

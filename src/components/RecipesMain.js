@@ -4,17 +4,17 @@ import { Routes, Route } from 'react-router-dom';
 import RecipeIndex from '../pages/RecipeIndex';
 import RecipeShow from '../pages/RecipeShow';
 import RecipeUpdate from '../pages/RecipeUpdate';
+import RecipeNew from '../pages/RecipeNew';
+import { async } from '@firebase/util';
 
 function RecipesMain (props) {
 
     const [savedRecipes, setSavedRecipes] = useState(null);
 
-    const recipesURL = 'http://localhost:2000/recipes/';
-
     const fetchSavedRecipes = useCallback(async () => {
         try {
             const token = await props.user.getIdToken();
-            const response = await fetch(recipesURL, {
+            const response = await fetch(props.recipesURL, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + token
@@ -30,7 +30,7 @@ function RecipesMain (props) {
     async function deleteSavedRecipe (id) {
         if (props.user) {
             const token = await props.user.getIdToken();
-            await fetch(recipesURL + id, {
+            await fetch(props.recipesURL + id, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + token
@@ -43,7 +43,7 @@ function RecipesMain (props) {
     async function updateSavedRecipe (recipe, id) {
         if (props.user) {
             const token = await props.user.getIdToken();
-            await fetch(recipesURL + id, {
+            await fetch(props.recipesURL + id, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'Application/json',
@@ -56,6 +56,7 @@ function RecipesMain (props) {
     }
 
     function handleEatenTodayClick (id) {
+
         setSavedRecipes((savedRecipes) => {
             const recipesCopy = [...savedRecipes];
             let foundIndex = recipesCopy.findIndex((r) => {
@@ -68,6 +69,11 @@ function RecipesMain (props) {
             });
             return recipesCopy;
         });
+        // const recipe = savedRecipes.filter((r) => {
+        //     return r._id === id
+        // });
+        // recipe[0].eatenToday  = !recipe[0].eatenToday;
+        // updateSavedRecipe(recipe, id);
     }
 
     useEffect(() => {
@@ -77,7 +83,6 @@ function RecipesMain (props) {
             setSavedRecipes(null);
         }
     }, [props.user, fetchSavedRecipes]);
-
 
     return (
         <main>
@@ -93,7 +98,19 @@ function RecipesMain (props) {
                         />
                     }
                 />
-                <Route path='/recipes/edit/:id' element={ <RecipeUpdate recipes={savedRecipes} updateRecipe={updateSavedRecipe} /> }/>
+                <Route path='/recipes/edit/:id' element={ <RecipeUpdate recipes={savedRecipes} updateRecipe={updateSavedRecipe} /> } />
+                <Route
+                    path='/recipes/new'
+                    element={
+                        <RecipeNew
+                            getRecipes={props.getRecipes}
+                            availableRecipes={props.availableRecipes}
+                            setAvailableRecipes={props.setAvailableRecipes}
+                            fetchRecipes={props.fetchRecipes}
+                            handleSaveRecipe={props.handleSaveRecipe}
+                        />
+                    }
+                />
                 {/* <Route path='nutrition' element={ <Nutrtition recipes={savedRecipes} />} /> */}
             </Routes>
         </main>
