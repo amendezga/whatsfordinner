@@ -31,7 +31,7 @@ function RecipeNew (props) {
 	            />
 	            <input type="submit" value="SearchForRecipes" />
 	        </form>
-            <MakeAbleFood availableRecipes={props.availableRecipes} />
+            <MakeAbleFood availableRecipes={props.availableRecipes} handleSaveRecipe={props.handleSaveRecipe} />
             <h3>Need to look at recipe details, should pair with the recipe details from the makeable food section?</h3>
             <h3>need button to confirm saving that particular recipe, using createRecipe function</h3>
         </>

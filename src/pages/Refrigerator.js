@@ -88,6 +88,7 @@ function Refrigerator(props) {
       availableRecipes={props.availableRecipes}
       deleteIngredient={props.deleteIngredient}
       getRecipes={props.getRecipes}
+      handleSaveRecipe={props.handleSaveRecipe}
       />
     : 'placeholder'}
     </div>

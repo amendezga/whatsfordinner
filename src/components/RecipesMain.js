@@ -11,47 +11,27 @@ function RecipesMain (props) {
 
     const [savedRecipes, setSavedRecipes] = useState(null);
 
-    const recipesURL = 'http://localhost:2000/recipes/';
-
     const fetchSavedRecipes = useCallback(async () => {
         try {
             const token = await props.user.getIdToken();
-            const response = await fetch(recipesURL, {
+            const response = await fetch(props.recipesURL, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + token
                     }
                 });
             const data = await response.json();
+            console.log(data);
             setSavedRecipes(data);
         } catch (error) {
             console.log(error);
         }
     }, [props.user]);
 
-    async function createSavedRecipe (recipe) {
-        try {
-            if (props.user) {
-                const token = await props.user.getIdToken();
-                await fetch(recipesURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'Application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                    body: JSON.stringify(recipe),
-                });
-            fetchSavedRecipes();
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     async function deleteSavedRecipe (id) {
         if (props.user) {
             const token = await props.user.getIdToken();
-            await fetch(recipesURL + id, {
+            await fetch(props.recipesURL + id, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + token
@@ -64,7 +44,7 @@ function RecipesMain (props) {
     async function updateSavedRecipe (recipe, id) {
         if (props.user) {
             const token = await props.user.getIdToken();
-            await fetch(recipesURL + id, {
+            await fetch(props.recipesURL + id, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'Application/json',
@@ -99,7 +79,6 @@ function RecipesMain (props) {
         }
     }, [props.user, fetchSavedRecipes]);
 
-
     return (
         <main>
             <Routes>
@@ -115,13 +94,18 @@ function RecipesMain (props) {
                     }
                 />
                 <Route path='/recipes/edit/:id' element={ <RecipeUpdate recipes={savedRecipes} updateRecipe={updateSavedRecipe} /> } />
-                <Route path='/recipes/new' element={
-                <RecipeNew
-                    getRecipes={props.getRecipes}
-                    createRecipe={createSavedRecipe}
-                    availableRecipes={props.availableRecipes}
-                    setAvailableRecipes={props.setAvailableRecipes}
-                    fetchRecipes={props.fetchRecipes} />} />
+                <Route
+                    path='/recipes/new'
+                    element={
+                        <RecipeNew
+                            getRecipes={props.getRecipes}
+                            availableRecipes={props.availableRecipes}
+                            setAvailableRecipes={props.setAvailableRecipes}
+                            fetchRecipes={props.fetchRecipes}
+                            handleSaveRecipe={props.handleSaveRecipe}
+                        />
+                    }
+                />
                 {/* <Route path='nutrition' element={ <Nutrtition recipes={savedRecipes} />} /> */}
             </Routes>
         </main>

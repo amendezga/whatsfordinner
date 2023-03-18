@@ -38,7 +38,7 @@ function MakeAbleFood(props){
          })}</ul> */}
          
          <button>See Recipe Details</button>
-         <button>Save Recipe</button>
+         <button id={index} onClick={props.handleSaveRecipe}>Save Recipe</button>
      </div>)
         })
     }
