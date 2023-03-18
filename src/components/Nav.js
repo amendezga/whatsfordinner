@@ -11,17 +11,17 @@ function Nav (props) {
         <li>Welcome, {props.user.displayName}</li>
         <li>
             <Link to='/refrigerator'>
-            <li> My Refrigerator </li>
+            <span> My Refrigerator </span>
             </Link>
           </li>
           <li>
             <Link to='/recipes'>
-            <li> My Recipes </li>
+            <span> My Recipes </span>
             </Link>
           </li>
           <li>
             <Link to='/about'>
-            <li> About </li>
+            <span> About </span>
             </Link>
           </li>
         <li>
