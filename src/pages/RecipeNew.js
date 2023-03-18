@@ -4,6 +4,8 @@ import MakeAbleFood from '../components/MakeableFood';
 function RecipeNew (props) {
 
     const [formState, setFormState] = useState({name: ''});
+    const [queryRecipes, setQueryRecipes] = useState(null);
+
 
     function handleQueryChange (evt) {
         setFormState({
@@ -14,7 +16,7 @@ function RecipeNew (props) {
     function handleQuerySubmit (evt) {
         evt.preventDefault();
         props.getRecipes(formState.name.trim());
-        props.setAvailableRecipes(props.fetchRecipes.hits);
+        setQueryRecipes(props.fetchRecipes.hits);
         setFormState({
             name: ''
         });
@@ -33,7 +35,7 @@ function RecipeNew (props) {
 	            />
 	            <input type="submit" value="SearchForRecipes" />
 	        </form>
-            <MakeAbleFood availableRecipes={props.availableRecipes} handleSaveRecipe={props.handleSaveRecipe} />
+            <MakeAbleFood availableRecipes={queryRecipes} handleSaveRecipe={props.handleSaveRecipe} />
         </>
     );
 } 

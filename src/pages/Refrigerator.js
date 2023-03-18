@@ -40,22 +40,23 @@ function Refrigerator(props) {
   };
 
   const  getAvailableRecipes= useCallback(async ()=> {
-    const chosenIngredients = [];
-    const refrigeratorCopy = [...props.refrigerator];
-    for (let i = 0; i < 3; i++) {
-      let randomIndex = Math.floor(Math.random() * refrigeratorCopy.length)
-      let randomIngredient = refrigeratorCopy[randomIndex];
-      refrigeratorCopy.splice(randomIndex, 1);
-      chosenIngredients.push(randomIngredient);
+    if (props.refrigerator) {
+        const chosenIngredients = [];
+        const refrigeratorCopy = [...props.refrigerator];
+        for (let i = 0; i < 3; i++) {
+          let randomIndex = Math.floor(Math.random() * refrigeratorCopy.length)
+          let randomIngredient = refrigeratorCopy[randomIndex];
+          refrigeratorCopy.splice(randomIndex, 1);
+          chosenIngredients.push(randomIngredient);
+        }
+        const ingredientArray = chosenIngredients.map((i) => {
+            return i.name;
+        });
+        props.getRecipes(ingredientArray.toString());
+        if (props.recipes) {
+            props.setAvailableRecipes(props.recipes.hits);
+        }
     }
-    setQuery(() => {
-      const ingredientArray = chosenIngredients.map((i) => {
-        return i.name;
-      });
-      return ingredientArray.toString();
-    });
-    props.getRecipes(query);
-    props.setAvailableRecipes(props.recipes.hits)
   });
 
   useEffect(()=>{
@@ -78,9 +79,9 @@ function Refrigerator(props) {
       <div className="ingredients">
         {!props.refrigerator ? loading() : loaded()}
       </div>
-      <h3>Here is recipe based on query:</h3>
+      <br />
       <button onClick={getAvailableRecipes}>
-        Click for see today's availableRecipe
+        See more recipes
         </button>
       {props.availableRecipes ? 
       <MakeAbleFood

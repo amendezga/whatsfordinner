@@ -40,7 +40,7 @@ nav li:hover {
   color: black;
 }
 
-nav li span:hover {
+nav span:hover {
   content: "";
   width: 100%;
   height: 100%;
@@ -108,8 +108,11 @@ th {
   background-color: #f2f2f2;
 }
 
-ins {
+li {
   text-decoration: none;
+  list-style: none;
+  padding-left: 0;
+  text-transform: capitalize;
 }
 
 .infoContainer {
