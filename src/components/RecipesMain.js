@@ -7,9 +7,7 @@ import RecipeUpdate from '../pages/RecipeUpdate';
 import RecipeNew from '../pages/RecipeNew';
 
 function RecipesMain (props) {
-
     const [savedRecipes, setSavedRecipes] = useState(null);
-
     const fetchSavedRecipes = useCallback(async () => {
         try {
             const token = await props.user.getIdToken();

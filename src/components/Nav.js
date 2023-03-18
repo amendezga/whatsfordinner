@@ -25,12 +25,14 @@ function Nav (props) {
             </Link>
           </li>
         <li>
-          <button onClick={logout}>Logout</button>
+          
+          <button className="button-login" onClick={logout}>Logout</button>
         </li>
         </>
         :
         <li>
-          <button onClick={login}>Login</button>
+          <li>Welcome! </li>
+          <button className="button-login" onClick={login}>Login</button>
         </li>
       }
       </ul>

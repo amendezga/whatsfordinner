@@ -11,12 +11,11 @@ import Footer from './components/Footer.js';
 
 
 function App() {
-
   const [user, setUser] = useState(null);
   const [fetchRecipes, setFetchRecipes] = useState(null);
   const [availableRecipes, setAvailableRecipes] = useState(null);
 
-  const recipesURL = 'http://localhost:2000/recipes/';
+  const recipesURL = 'https://whatsfordinnerteam.herokuapp.com/recipes/';
 
   const getRecipes = async(query)=>{
     const APP_ID = "f01b9fa1"
@@ -87,7 +86,6 @@ function App() {
 
   return (
     <div className="App">
-        <header className="App-header">
         <Nav user={user} />
         <Main
             user={user}
@@ -107,7 +105,6 @@ function App() {
             handleSaveRecipe={handleSaveRecipe}
         />
         <Footer />
-        </header>
     </div>
   );
 }
