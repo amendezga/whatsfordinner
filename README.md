@@ -4,7 +4,7 @@ This "What's for dinner" application allows users to add or delete ingredients f
 
 ## Technologies Used:
 
-HTML, CSS, JavaScript, MongoDB, Express, React, Node.Js, Heroku, Netlify
+HTML, CSS, JavaScript, MongoDB, Express, React, Node.Js, Heroku, Netlify, Firebase
 
 ## Getting Started:
 
