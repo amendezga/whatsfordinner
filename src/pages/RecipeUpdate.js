@@ -42,6 +42,19 @@ function RecipeUpdate (props) {
             ]
         });
     }
+
+    function removeField (evt) {
+        setFormState((prev) => {
+            const formStateCopy = [...prev];
+            let foundIndex = formStateCopy.ingredients.findIndex((i) => {
+                return i === evt.target.value;
+            });
+            formStateCopy.ingredients.splice(foundIndex, 1, {
+                ...formStateCopy,
+            });
+            return formStateCopy;
+        });
+    }
     
     return (
         <div>
@@ -52,18 +65,22 @@ function RecipeUpdate (props) {
         <label>Image:
             <input type="text" value={formState.image} name="image" onChange={handleChange} />
         </label>
-        <label className="healthLabel">Health Labels:
+        {/* <label className="healthLabel">Health Labels:
         {formState.healthLabel.map((h) => {
                 return (
                     <input type="text" value={h} name="healthLabel" placeholder="enter health label" onChange={handleChange} />
                 );
             })}
         </label>
-            <button type="button" id="healthLabel" onClick={addField}>Add Health Label field</button>
+            <button type="button" id="healthLabel" onClick={addField}>Add Health Label field</button> */}
         <label className="ingredients">Ingredients:
             {formState.ingredients.map((i) => {
                 return (
-                    <input type="text" value={i} name="ingredients" placeholder="enter ingredient" onChange={handleChange} />
+                    <>
+                        <input type="text" value={i} name="ingredients" placeholder="enter ingredient" onChange={handleChange} />
+                        <button type="button" onClick={removeField}>Remove Ingredient</button>
+                    </>
+                    
                 );
             })}
         </label>
