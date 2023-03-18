@@ -1,38 +1,58 @@
 import {useState} from 'react'
 function MakeAbleFood(props){
-    const [circled,setCircle] = useState(null)
-    const availableRecipes = props.availableRecipes
-    // const availableRecipes = [
-    //      { name: 'bobatea', ingredients: ['boba', 'milktea']},
-    //      { name: 'banana', ingredients: ['banana']} ]
 
-    const handleAddClick=(event,index)=>{
-        setCircle(index)
-        // console.log(availableRecipes[index])
-        props.usedForRecipe(availableRecipes[index])
+    function matchIngredients () {
 
+        const inStockFood = [];
+        let recipeFoodArray = [];
+        props.refrigerator.map((r) => {
+            inStockFood.push(r.name);
+        });
+        props.availableRecipes.map((r) => {
+            r.recipe.ingredients.map((f) => {
+                f.food.toLowerCase();
+                recipeFoodArray.push(f.food);
+                console.log(recipeFoodArray);
+            })
+            let isMatched = inStockFood.every(f => recipeFoodArray.includes(f.toLowerCase()))
+            console.log(isMatched);
+            recipeFoodArray = [];
+        });
+        console.log('made call');
     }
-    const handleRemoveClick=(event)=>{
-        setCircle("")
-        props.usedForRecipe(null)
-    }
-return(
-    <><h1>Here is avail recipes</h1>
+
+    function loaded () {
+        return (
+            <><h1>Available Recipes</h1>
     <div className ="ingredients">
     
+        {/* {matchIngredients()} */}
     {
-        availableRecipes.map((availableRecipe,index)=>{
-         return( <div className={circled===index?"usedForRecipe ingredient":"ingredient"}>
-         {availableRecipe.recipe.label}
-         <button onClick={(event) => handleAddClick(event, index)}>AddTomake</button>
+        props.availableRecipes.map((availableRecipe,index)=>{
+         return( <div key={index}>
+         <h3>{availableRecipe.recipe.label}</h3>
+         <img src={availableRecipe.recipe.images.THUMBNAIL.url} alt="" />
+         {/* <ul>Includes:
+            {availableRecipe.recipe.ingredients.map((r) => {
+                return <li>{r.food}</li>
+         })}</ul> */}
          
-         <button onClick={(event) => handleRemoveClick(event, index)}>Remove</button>
+         <button>See Recipe Details</button>
+         <button id={index} onClick={props.handleSaveRecipe}>Save Recipe</button>
      </div>)
         })
     }
     </div>
     </>
-)
+
+        )
+    }
+
+    function loading () {
+        return <h1>Loading...</h1>
+    }
+
+return props.availableRecipes ? loaded() : loading();
 
 }
 export default MakeAbleFood

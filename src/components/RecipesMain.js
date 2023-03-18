@@ -4,6 +4,8 @@ import { Routes, Route } from 'react-router-dom';
 import RecipeIndex from '../pages/RecipeIndex';
 import RecipeShow from '../pages/RecipeShow';
 import RecipeUpdate from '../pages/RecipeUpdate';
+import RecipeNew from '../pages/RecipeNew';
+import { async } from '@firebase/util';
 
 function RecipesMain () {
 
@@ -11,9 +13,9 @@ function RecipesMain () {
 
     const recipesURL = 'http://localhost:2000/recipes/';
 
-    async function fetchSavedRecipes () {
+    const fetchSavedRecipes = useCallback(async () => {
         try {
-            const response = await fetch(recipesURL);
+            const response = await fetch(props.recipesURL);
             const data = await response.json();
             setSavedRecipes(data);
         } catch (error) {
@@ -22,14 +24,14 @@ function RecipesMain () {
     }
 
     async function deleteSavedRecipe (id) {
-        await fetch(recipesURL + id, {
+        await fetch(props.recipesURL + id, {
             method: 'DELETE',
         });
         fetchSavedRecipes();
     }
 
     async function updateSavedRecipe (recipe, id) {
-        await fetch(recipesURL + id, {
+        await fetch(props.recipesURL + id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'Application/json'
@@ -40,6 +42,7 @@ function RecipesMain () {
     }
 
     function handleEatenTodayClick (id) {
+
         setSavedRecipes((savedRecipes) => {
             // console.log(savedRecipes);
             const recipesCopy = [...savedRecipes];
@@ -53,12 +56,20 @@ function RecipesMain () {
             });
             return recipesCopy;
         });
+        // const recipe = savedRecipes.filter((r) => {
+        //     return r._id === id
+        // });
+        // recipe[0].eatenToday  = !recipe[0].eatenToday;
+        // updateSavedRecipe(recipe, id);
     }
 
     useEffect(() => {
-        fetchSavedRecipes();
-    }, []);
-
+        if (props.user) {
+            fetchSavedRecipes();
+        } else {
+            setSavedRecipes(null);
+        }
+    }, [props.user, fetchSavedRecipes]);
 
     return (
         <main>
@@ -74,7 +85,19 @@ function RecipesMain () {
                         />
                     }
                 />
-                <Route path='/recipes/edit/:id' element={ <RecipeUpdate recipes={savedRecipes} updateRecipe={updateSavedRecipe} /> }/>
+                <Route path='/recipes/edit/:id' element={ <RecipeUpdate recipes={savedRecipes} updateRecipe={updateSavedRecipe} /> } />
+                <Route
+                    path='/recipes/new'
+                    element={
+                        <RecipeNew
+                            getRecipes={props.getRecipes}
+                            availableRecipes={props.availableRecipes}
+                            setAvailableRecipes={props.setAvailableRecipes}
+                            fetchRecipes={props.fetchRecipes}
+                            handleSaveRecipe={props.handleSaveRecipe}
+                        />
+                    }
+                />
                 {/* <Route path='nutrition' element={ <Nutrtition recipes={savedRecipes} />} /> */}
             </Routes>
         </main>

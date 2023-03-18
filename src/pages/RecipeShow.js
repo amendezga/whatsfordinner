@@ -15,6 +15,7 @@ function RecipeShow (props) {
     function loaded () {
         return (
             <>
+            <div key={recipe._id} className='infoContainer'>
                 <div className='recipeInfo'>
                     <img src={recipe.image} alt={recipe.name} />
                     <h1>{recipe.name}</h1>

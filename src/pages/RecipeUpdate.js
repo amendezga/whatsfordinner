@@ -33,6 +33,16 @@ function RecipeUpdate (props) {
         navigate(`/recipes/${recipe._id}`);
     }
 
+    function addField (evt) {
+        const keyName = evt.target.id
+        setFormState({
+            ...formState,
+            [keyName]: [
+               ...formState[keyName], ''
+            ]
+        });
+    }
+    
     return (
         <div>
        <form onSubmit={handleSubmit} autoComplete="off" >
