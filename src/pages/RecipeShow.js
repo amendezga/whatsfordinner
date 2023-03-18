@@ -15,76 +15,63 @@ function RecipeShow (props) {
     function loaded () {
         return (
             <>
-            <div className='infoContainer'>
                 <div className='recipeInfo'>
                     <img src={recipe.image} alt={recipe.name} />
                     <h1>{recipe.name}</h1>
                     <button onClick={() => {props.handleClick(recipe._id)}}>
                         {recipe.eatenToday ? 'Not Eaten Today' : 'Eaten Today'}
-                        </button><br /><br />
-                    <button onClick={handleDelete}>Remove Saved Recipe</button><br /><br />
+                        </button>
                     <Link to={`/recipes/edit/${recipe._id}`} >
                         Update Recipe
-                    </Link><br />
-                <section className='labels'>
+                    </Link>
+                    <button onClick={handleDelete}>Remove Saved Recipe</button>
+                </div>
+                <ul className='labels'>
                     <h4>Health Labels:</h4>
                 {recipe.healthLabel.length !== 0 ? 
                     recipe.healthLabel.map((label) => {
-                        return <ins>{label}</ins>
-                    })
-                    :
-                    <li>none</li>
-                }
-                </section>
-                <section className='ingredients'>
+                        return <li>{label}</li>
+                })
+                :
+                <li>none</li>
+            }
+                </ul>
+                <ul className='ingredients'>
                     <h2>Ingredients:</h2>
                     {recipe.ingredients.map((i) => {
-                        return <ins>{i}</ins>
+                        return <li>{i}</li>
                     })}
-                </section>
-                    </div>
+                </ul>
                 <div className='nutrition'>
                     <h2>Nutrition Facts</h2>
-                    <table>
-  <thead>
-    <tr>
-      <th>Nutrient</th>
-      <th>Amount per serving</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">Calories</th>
-      <td>{recipe.nutrInfo.cal}</td>
-    </tr>
-    <tr>
-      <th scope="row">Total Fat</th>
-      <td>{recipe.nutrInfo.fat}g</td>
-    </tr>
-    <tr>
-      <th scope="row">Cholesterol</th>
-      <td>{recipe.nutrInfo.chol}mg</td>
-    </tr>
-    <tr>
-      <th scope="row">Sodium</th>
-      <td>{recipe.nutrInfo.sod}mg</td>
-    </tr>
-    <tr>
-      <th scope="row">Total Carbohydrates</th>
-      <td>{recipe.nutrInfo.carbs}g</td>
-    </tr>
-    <tr>
-      <th scope="row">Protein</th>
-      <td>{recipe.nutrInfo.protein}g</td>
-    </tr>
-  </tbody>
-</table>
-                </div>
+                    <span>
+                        <h3>Calories</h3>
+                        {recipe.nutrInfo.cal}
+                    </span>
+                    <span>
+                        <h3>Total Fat</h3>
+                        {recipe.nutrInfo.fat}g
+                    </span>
+                    <span>
+                        <h3>Cholesterol</h3>
+                        {recipe.nutrInfo.chol}mg
+                    </span>
+                    <span>
+                        <h3>Sodium</h3>
+                        {recipe.nutrInfo.sod}mg
+                    </span>
+                    <span>
+                        <h3>Total Carbohydrates</h3>
+                        {recipe.nutrInfo.carbs}g
+                    </span>
+                    <span>
+                        <h3>Protein</h3>
+                        {recipe.nutrInfo.protein}g
+                    </span>
                 </div>
             </>
         )
     }
-
 
     function loading () {
         return <h1>Loading...</h1>

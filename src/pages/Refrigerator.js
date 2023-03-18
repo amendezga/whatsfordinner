@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import MakeAbleFood from "../components/MakeableFood";
 
 function Refrigerator(props) {
@@ -72,8 +72,8 @@ function Refrigerator(props) {
     // const ingredFromRefri = props.refrigerator;
     // setAvailableRecipes(props.recipes.hits
     //   .filter((recipe) => {
-    //     return recipe.ingredientLines.every((ingredient) => {
-    //       return ingredFromRefri.some((i) => i.name == ingredient);
+    //     return recipe.ingredients.every((ingredient) => {
+    //       return ingredFromRefri.find((i) => i.name === ingredient);
     //     });
     //   }).map((recipe) => recipe))
   };
@@ -94,29 +94,26 @@ function Refrigerator(props) {
     // )
   }
 
-//   useEffect(()=>{
-//     getAvailableRecipes();
-// }, []);
+  useEffect(()=>{
+    getAvailableRecipes();
+}, []);
 
   return (
     <div className="refrigerator">
-
       <h2>What we have in the refrigerator?</h2>
-
       <form onSubmit={handleSubmit}>
-        <input 
+        <input
           type="text"
           value={ingredient.name}
           name="name"
           placeholder="boba"
           onChange={handleChange}
         />
-        <input className="button-submit" type="submit" value="Add Ingredient" />
+        <input type="submit" value="Add Ingredient" />
       </form>
       <div className="ingredients">
         {!props.refrigerator ? loading() : loaded()}
       </div>
-
       <form onSubmit={handleQuerySumbit}>
         <input
           type="text"
@@ -125,15 +122,12 @@ function Refrigerator(props) {
           placeholder="banana+milk"
           onChange={handleQueryChange}
         />
-        <input className="button-submit" type="submit" value="SearchForRecipes" />
+        <input type="submit" value="SearchForRecipes" />
       </form>
       <h3>Here is recipe based on query:</h3>
       <button onClick={getAvailableRecipes}>
         Click for see today's availableRecipe
       </button>
-
-      <h3>Here is something we can make today</h3>
-
       {!availableRecipes?nonClickMadeFood():
       <MakeAbleFood
       usedForRecipe={usedForRecipe}

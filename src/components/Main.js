@@ -1,73 +1,52 @@
-import {useState,useEffect, useCallback} from 'react'
+import {useState,useEffect} from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Refrigerator from "../pages/Refrigerator"
 
-function Main (props) {
+function Main(){
     // import ingredient from backend
-    const API_URL = "https://whatsfordinnerteam.herokuapp.com/refrigerator"
+    const API_URL = "http://localhost:2000/refrigerator"
     const [refrigerator,setRefrigerator]=useState(null)
     const [recipes,setRecipes]=useState(null)
 
-    const getIngredient= useCallback (async()=>{
+    const getIngredient= async()=>{
         try{
-          const token = await props.user.getIdToken();
-            const response = await fetch(API_URL,{
-                method:'GET',
-                headers: {
-                  'Authorization': 'Bearer ' + token
-                }
-            });
-            const ingredients = await response.json();
-        setRefrigerator(ingredients);
+            const reponse = await fetch(API_URL,{
+                method:'GET'
+            })
+            const ingredients = await reponse.json();
+        setRefrigerator(ingredients)
         }catch(error){
-            console.log("something wrong or empty refrigerator");
-        }
-      }, [props.user]);
+            console.log("something wrong or empty refrigerator")
+        }}
 
     const createIngredient = async (ingredient) => {
         try {
-          if (props.user) {
-            const token = await props.user.getIdToken();
             await fetch(API_URL, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'Application/json',
-                    'Authorization': 'Bearer ' + token
                   },
                   body: JSON.stringify(ingredient),
                 });
                 getIngredient();
-          }
             } catch (error) {
-             console.log('createIngredient not works');         
+             console.log('createIngredient not works')            
             }
-    }
-
-          const deleteIngredient = async (id) => {
-            if (props.user) {
-              const token = await props.user.getIdToken();
-              await fetch(API_URL +"/"+id, {
-                method: 'DELETE',
-                headers: {
-                  'Authorization': 'Bearer ' + token
-                }
-              });
-            }
-              getIngredient();
           }
-
+          const deleteIngredient = async (id) => {
+            await fetch(API_URL +"/"+id, {
+              method: 'DELETE',
+            });
+            getIngredient();
+          };
           const editIngredient = async(ingredient,id)=>{
-            if (props.user) {
-              const token = await props.user.getIdToken;
-              await fetch(API_URL+"/"+id,{
-              method:'PUT',
-              header:{
-                  'Conmtent-Type':'Application/json',
-                  'Authorization': 'Bearer ' + token
-              },
-              body:JSON.stringify(ingredient),
-              });
-            }
+            await fetch(API_URL+"/"+id,{
+            method:'PUT',
+            header:{
+                'Conmtent-Type':'Application/json'
+            },
+            body:JSON.stringify(ingredient),
+            })
             getIngredient();
           }
 
@@ -86,13 +65,8 @@ function Main (props) {
             }}
 
 useEffect(()=>{
-  if (props.user) {
     getIngredient();
-  } else {
-    setRefrigerator(null);
-  }
-}, [props.user, getIngredient]);
-
+}, []);
 return(
     <main>
         <Routes>

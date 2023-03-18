@@ -33,17 +33,6 @@ function RecipeUpdate (props) {
         navigate(`/recipes/${recipe._id}`);
     }
 
-    function addField (evt) {
-        const keyName = evt.target.id
-        setFormState({
-            ...formState,
-            [keyName]: [
-               ...formState[keyName], ''
-            ]
-        });
-    }
-    console.log(formState);
-    
     return (
         <div>
        <form onSubmit={handleSubmit} autoComplete="off" >
@@ -53,22 +42,12 @@ function RecipeUpdate (props) {
         <label>Image:
             <input type="text" value={formState.image} name="image" onChange={handleChange} />
         </label>
-        <label className="healthLabel">Health Labels:
-        {formState.healthLabel.map((h) => {
-                return (
-                    <input type="text" value={h} name="healthLabel" placeholder="enter health label" onChange={handleChange} />
-                );
-            })}
+        <label>Health Labels:
+            <input type="text" value={formState.healthLabel} name="healthLabel" onChange={handleChange} />
         </label>
-            <button type="button" id="healthLabel" onClick={addField}>Add Health Label field</button>
-        <label className="ingredients">Ingredients:
-            {formState.ingredients.map((i) => {
-                return (
-                    <input type="text" value={i} name="ingredients" placeholder="enter ingredient" onChange={handleChange} />
-                );
-            })}
+        <label>Ingredients:
+            <input type="text" value={formState.ingredients} name="ingredients" onChange={handleChange} />
         </label>
-        <button type="button" id="ingredients" onClick={addField}>Add ingredient field</button>
         <label>Calories:
             <input type="number" value={formState.nutrInfo.cal} name="cal" onChange={handleChange} />
         </label>
